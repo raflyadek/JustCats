@@ -103,7 +103,7 @@ fun DetailScreenContent(modifier: Modifier = Modifier, cats: Cats, paddingValues
         )
         Text(
             text = breed?.name.orEmpty(),
-            fontSize = 14.sp,
+            fontSize = 15.sp,
         )
 
         Margin(size = 16.dp)
@@ -114,7 +114,7 @@ fun DetailScreenContent(modifier: Modifier = Modifier, cats: Cats, paddingValues
         )
         Text(
             text = breed?.temperament.orEmpty(),
-            fontSize = 14.sp
+            fontSize = 15.sp
         )
 
         Margin(size = 16.dp)
@@ -125,7 +125,7 @@ fun DetailScreenContent(modifier: Modifier = Modifier, cats: Cats, paddingValues
         )
         Text(
             text = breed?.description.orEmpty(),
-            fontSize = 14.sp
+            fontSize = 15.sp
         )
     }
 }
