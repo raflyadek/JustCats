@@ -29,15 +29,13 @@ import com.creospace.recipe_kmp.data.model.Cats
 import com.creospace.recipe_kmp.ui.theme.RecipekmpTheme
 
 @Composable
-fun CatsItem(cats: Cats, navController: NavController) {
+fun CatsItem(cats: Cats, navController: NavController, toDetail: () -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .clickable {
                 Log.d("CatsItem", "Navigating to DetailScreen/${cats.id}")
-                navController.navigate(
-                    "DetailScreen/${cats.id}"
-                )
+                toDetail()
             },
         shape = RectangleShape
     ) {

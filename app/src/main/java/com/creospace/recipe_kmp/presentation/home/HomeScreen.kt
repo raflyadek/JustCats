@@ -33,14 +33,16 @@ fun HomeScreen(
     navController: NavController,
     paddingValues: PaddingValues,
     homeUiState: HomeUiState,
-    retryAction: () -> Unit
+    retryAction: () -> Unit,
+    toDetail: (Cats) -> Unit,
 ) {
     when (homeUiState) {
         is HomeUiState.Loading -> LoadingScreen()
         is HomeUiState.Success ->
             CatsList(
                 catsList = homeUiState.cats,
-                navController = navController
+                navController = navController,
+                toDetail = toDetail
             )
         else -> ErrorScreen(retryAction)
     }

@@ -47,7 +47,8 @@ fun DetailScreen(
     modifier: Modifier = Modifier,
     navController: NavController,
     id: String,
-    detailUiState: DetailUiState
+    detailUiState: DetailUiState,
+    navigateBack: () -> Unit,
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
 

@@ -15,14 +15,18 @@ import com.creospace.recipe_kmp.data.model.Cats
 import com.creospace.recipe_kmp.ui.theme.RecipekmpTheme
 
 @Composable
-fun CatsList(catsList: List<Cats>, navController: NavController) {
+fun CatsList(catsList: List<Cats>, navController: NavController, toDetail: (Cats) -> Unit) {
     LazyVerticalStaggeredGrid(
         columns = StaggeredGridCells.Adaptive(200.dp),
         verticalItemSpacing = 2.dp,
         horizontalArrangement = Arrangement.spacedBy(2.dp),
         content = {
             items(catsList.size) { index ->
-                CatsItem(cats = catsList[index], navController = navController)
+                CatsItem(
+                    cats = catsList[index],
+                    navController = navController,
+                    toDetail = {toDetail(catsList[index])}
+                )
             }
         },
         modifier = Modifier.fillMaxSize(),

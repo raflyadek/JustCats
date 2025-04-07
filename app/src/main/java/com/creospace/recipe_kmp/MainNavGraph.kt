@@ -10,6 +10,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.creospace.recipe_kmp.data.model.Cats
 import com.creospace.recipe_kmp.presentation.detail.DetailScreen
 import com.creospace.recipe_kmp.presentation.detail.DetailViewModel
 import com.creospace.recipe_kmp.presentation.favorite.FavoriteScreen
@@ -28,7 +29,10 @@ fun MainNavGraph(navController: NavHostController, paddingValues: PaddingValues)
                 homeUiState = homeViewModel.homeUiState,
                 navController = navController,
                 paddingValues = paddingValues,
-                retryAction = {}
+                retryAction = {},
+                toDetail = { cat ->
+                    navController.navigate("DetailScreen/${cat.id}")
+                }
             )
         }
         composable(
@@ -42,7 +46,8 @@ fun MainNavGraph(navController: NavHostController, paddingValues: PaddingValues)
             DetailScreen(
                 detailUiState = detailViewModel.detailUiState,
                 navController = navController,
-                id = id
+                id = id,
+                navigateBack = {navController.popBackStack()}
             )
         }
 
