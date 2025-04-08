@@ -25,14 +25,15 @@ fun MainNavGraph(navController: NavHostController, paddingValues: PaddingValues)
         composable(Screens.Home.route) {
             val homeViewModel: HomeViewModel =
                 viewModel(factory = HomeViewModel.Factory)
+            val navigateToDetail: (Cats) -> Unit = { cat ->
+                navController.navigate("DetailScreen/${cat.id}")
+            }
             HomeScreen(
                 homeUiState = homeViewModel.homeUiState,
                 navController = navController,
                 paddingValues = paddingValues,
                 retryAction = {},
-                toDetail = { cat ->
-                    navController.navigate("DetailScreen/${cat.id}")
-                }
+                toDetail = navigateToDetail
             )
         }
         composable(

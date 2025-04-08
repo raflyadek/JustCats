@@ -15,6 +15,7 @@ coroutines = "1.10.1"
 coil = "3.1.0"
 kotlinSerialization = "1.8.0"
 retrofitSerialization = "2.11.0"
+koin = "4.0.4"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -44,6 +45,8 @@ kotlin-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serial
 androidx-adaptive = { group = "androidx.compose.material3.adaptive", name = "adaptive" }
 androidx-adaptive-layout = { group = "androidx.compose.material3.adaptive", name = "adaptive-layout" }
 androidx-adaptive-navigation = { group = "androidx.compose.material3.adaptive", name = "adaptive-navigation" }
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
+koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
