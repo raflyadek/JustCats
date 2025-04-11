@@ -22,7 +22,10 @@ sealed class DetailUiState {
     object Loading : DetailUiState()
 }
 
-class DetailViewModel(private val catsPhotosRepository: CatsPhotosRepository, private val id: String) : ViewModel() {
+class DetailViewModel(
+    private val catsPhotosRepository: CatsPhotosRepository,
+    private val id: String
+) : ViewModel() {
     var detailUiState: DetailUiState by mutableStateOf(DetailUiState.Loading)
         private set
 
@@ -39,16 +42,6 @@ class DetailViewModel(private val catsPhotosRepository: CatsPhotosRepository, pr
                 DetailUiState.Error
             } catch (e: HttpException) {
                 DetailUiState.Error
-            }
-        }
-    }
-
-    companion object {
-        fun provideFactory(application: Application, id: String): ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                val app = application as CatsApplication
-                val catsPhotosRepository = app.container.catsPhotosRepository
-                DetailViewModel(catsPhotosRepository, id)
             }
         }
     }

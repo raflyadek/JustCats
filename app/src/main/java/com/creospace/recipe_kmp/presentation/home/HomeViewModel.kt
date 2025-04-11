@@ -41,15 +41,4 @@ class HomeViewModel(private val catsPhotosRepository: CatsPhotosRepository) : Vi
             }
         }
     }
-
-    companion object {
-        val Factory: ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                val applicaton = (this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY]
-                        as CatsApplication)
-                val catsPhotosRepository = applicaton.container.catsPhotosRepository
-                HomeViewModel(catsPhotosRepository = catsPhotosRepository)
-            }
-        }
-    }
 }

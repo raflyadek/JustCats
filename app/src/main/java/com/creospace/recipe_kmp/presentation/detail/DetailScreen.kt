@@ -60,7 +60,7 @@ fun DetailScreen(
             TopBar(
                 scrollBehavior = scrollBehavior,
                 title = "detail",
-                navigateBack = {navController.popBackStack()}
+                navigateBack = navigateBack
             )
         }
     ) { innerPadding ->
