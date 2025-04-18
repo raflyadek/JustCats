@@ -6,10 +6,8 @@ import com.creospace.recipe_kmp.data.retrofit.CatApiService
 import com.creospace.recipe_kmp.presentation.detail.DetailViewModel
 import com.creospace.recipe_kmp.presentation.home.HomeViewModel
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonIgnoreUnknownKeys
 import okhttp3.MediaType.Companion.toMediaType
 import org.koin.core.module.dsl.factoryOf
-import org.koin.core.module.dsl.viewModel
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.bind
 import org.koin.dsl.module

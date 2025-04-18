@@ -32,11 +32,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.creospace.recipe_kmp.components.Margin
 import com.creospace.recipe_kmp.components.TopBar
+import com.creospace.recipe_kmp.data.model.Breed
 import com.creospace.recipe_kmp.data.model.Cats
 import com.creospace.recipe_kmp.presentation.home.components.ErrorScreen
 import com.creospace.recipe_kmp.ui.theme.RecipekmpTheme
@@ -135,5 +137,26 @@ fun DetailScreenContent(modifier: Modifier = Modifier, cats: Cats, paddingValues
 @Composable
 fun DetailScreenContentPreview(modifier: Modifier = Modifier) {
     RecipekmpTheme {
+        //doesnt work because coil load it from network and the preview dont load network images
+        val navController = rememberNavController()
+        //create the fake cat object using Cats data class
+        val mockCat = Cats(
+            url = "https://cdn2.thecatapi.com/images/MTY30DIyMO.jpg",
+            width = 200,
+            height = 300,
+            breeds = listOf(
+                Breed(
+                    name = "abyssinian",
+                    temperament = "active, energetic, cute, intelligent",
+                    description = "the abysnian is easy to care for and blablablalba"
+                )
+            )
+        )
+        DetailScreen(
+            navController = navController,
+            id = "123",
+            detailUiState = DetailUiState.Success(mockCat),
+            navigateBack = {}
+        )
     }
 }
