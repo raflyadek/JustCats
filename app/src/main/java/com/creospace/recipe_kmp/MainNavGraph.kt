@@ -45,7 +45,9 @@ fun MainNavGraph(navController: NavHostController, paddingValues: PaddingValues)
                 detailUiState = detailViewModel.detailUiState,
                 navController = navController,
                 id = id,
-                navigateBack = {navController.popBackStack()}
+                navigateBack = {navController.popBackStack()},
+                saveToFavorite = {}, //get save method from favoriteviewmodel
+                deleteFromFavorite = {} //get delete method from favoriteviewmodel
             )
         }
 

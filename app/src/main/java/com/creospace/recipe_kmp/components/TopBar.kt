@@ -3,6 +3,7 @@ package com.creospace.recipe_kmp.components
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -29,7 +30,7 @@ fun TopBar(
     modifier: Modifier = Modifier,
     scrollBehavior: TopAppBarScrollBehavior,
     title: String,
-    navigateBack: () -> Unit
+    navigateBack: () -> Unit,
 ) {
     TopAppBar(
         colors = TopAppBarDefaults.topAppBarColors(
@@ -66,6 +67,6 @@ fun TopBarPreview(modifier: Modifier = Modifier) {
     RecipekmpTheme {
         val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
 
-        TopBar(title = "Sphinx", scrollBehavior = scrollBehavior) { }
+        TopBar(title = "Sphinx", scrollBehavior = scrollBehavior, navigateBack = {})
     }
 }

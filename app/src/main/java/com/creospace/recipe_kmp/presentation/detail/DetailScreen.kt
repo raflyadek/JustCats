@@ -1,5 +1,6 @@
 package com.creospace.recipe_kmp.presentation.detail
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -15,8 +16,11 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
@@ -51,6 +55,8 @@ fun DetailScreen(
     id: String,
     detailUiState: DetailUiState,
     navigateBack: () -> Unit,
+    saveToFavorite: () -> Unit,
+    deleteFromFavorite: () -> Unit
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
 
@@ -70,7 +76,12 @@ fun DetailScreen(
             when (detailUiState) {
                 is DetailUiState.Loading -> CircularProgressIndicator()
                 is DetailUiState.Success ->
-                    DetailScreenContent(cats = detailUiState.detail, paddingValues = innerPadding)
+                    DetailScreenContent(
+                        cats = detailUiState.detail,
+                        paddingValues = innerPadding,
+                        saveToFavorite = saveToFavorite,
+                        deleteFromFavorite = deleteFromFavorite
+                    )
                 else -> ErrorScreen({})
             }
         }
@@ -78,7 +89,14 @@ fun DetailScreen(
 }
 
 @Composable
-fun DetailScreenContent(modifier: Modifier = Modifier, cats: Cats, paddingValues: PaddingValues) {
+fun DetailScreenContent(
+    modifier: Modifier = Modifier,
+    cats: Cats,
+    paddingValues: PaddingValues,
+    saveToFavorite: () -> Unit,
+    deleteFromFavorite: () -> Unit,
+    isFav: Boolean = false
+) {
     val breed = cats.breeds.firstOrNull()
     Column(
         modifier = modifier
@@ -97,39 +115,61 @@ fun DetailScreenContent(modifier: Modifier = Modifier, cats: Cats, paddingValues
             contentScale = ContentScale.Crop,
             contentDescription = ""
         )
+        Column(
+            modifier = Modifier
+                .padding(horizontal = 8.dp)
+        ) {
+            Margin(size = 12.dp)
+            if (isFav) {
+                Icon(
+                    Icons.Default.FavoriteBorder,
+                    "",
+                    modifier = Modifier.clickable {
+                        saveToFavorite()
+                    }
+                )
+            } else {
+                Icon(
+                    Icons.Default.Favorite,
+                    "",
+                    modifier = Modifier.clickable {
+                        deleteFromFavorite()
+                    }
+                )
+            }
+            Margin(size = 16.dp)
+            Text(
+                text = "Name",
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Bold
+            )
+            Text(
+                text = breed?.name.orEmpty(),
+                fontSize = 15.sp,
+            )
 
-        Margin(size = 16.dp)
-        Text(
-            text = "Name",
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Bold
-        )
-        Text(
-            text = breed?.name.orEmpty(),
-            fontSize = 15.sp,
-        )
+            Margin(size = 16.dp)
+            Text(
+                text = "Temprament",
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Bold
+            )
+            Text(
+                text = breed?.temperament.orEmpty(),
+                fontSize = 15.sp
+            )
 
-        Margin(size = 16.dp)
-        Text(
-            text = "Temprament",
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Bold
-        )
-        Text(
-            text = breed?.temperament.orEmpty(),
-            fontSize = 15.sp
-        )
-
-        Margin(size = 16.dp)
-        Text(
-            text = "Description",
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Bold
-        )
-        Text(
-            text = breed?.description.orEmpty(),
-            fontSize = 15.sp
-        )
+            Margin(size = 16.dp)
+            Text(
+                text = "Description",
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Bold
+            )
+            Text(
+                text = breed?.description.orEmpty(),
+                fontSize = 15.sp
+            )
+        }
     }
 }
 
@@ -152,11 +192,12 @@ fun DetailScreenContentPreview(modifier: Modifier = Modifier) {
                 )
             )
         )
-        DetailScreen(
-            navController = navController,
-            id = "123",
-            detailUiState = DetailUiState.Success(mockCat),
-            navigateBack = {}
+        DetailScreenContent(
+            cats = mockCat,
+            paddingValues = PaddingValues(),
+            saveToFavorite = {},
+            deleteFromFavorite = {},
+            isFav = true
         )
     }
 }
