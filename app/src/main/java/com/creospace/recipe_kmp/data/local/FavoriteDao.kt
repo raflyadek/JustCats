@@ -5,7 +5,6 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import androidx.room.TypeConverter
 import androidx.room.Update
 
 @Dao
@@ -21,6 +20,6 @@ interface FavoriteDao {
     suspend fun update(favoriteCats: FavoriteCats)
 
     @Query("SELECT * FROM favorite")
-    suspend fun getAll(): List<FavoriteCats>
+    suspend fun loadAll(): List<FavoriteCats>
 
 }

@@ -54,7 +54,7 @@ fun provideDatabase(application: Application): FavoriteRoomDatabase =
         application,
         FavoriteRoomDatabase::class.java,
         "favorite"
-    ).fallbackToDestructiveMigration().build()
+    ).build()
 
 fun provideDao(favoriteRoomDatabase: FavoriteRoomDatabase): FavoriteDao =
     favoriteRoomDatabase.favoriteDao()

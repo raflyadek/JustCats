@@ -8,8 +8,8 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "favorite")
 data class FavoriteCats(
     @PrimaryKey(autoGenerate = false)
-    @NonNull
     @ColumnInfo(name = "id")
+    @NonNull
     var id: String,
 
     @ColumnInfo(name = "url")

@@ -1,5 +1,7 @@
 package com.creospace.recipe_kmp.presentation.detail
 
+import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -42,6 +44,7 @@ import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.creospace.recipe_kmp.components.Margin
 import com.creospace.recipe_kmp.components.TopBar
+import com.creospace.recipe_kmp.data.local.FavoriteCats
 import com.creospace.recipe_kmp.data.model.Breed
 import com.creospace.recipe_kmp.data.model.Cats
 import com.creospace.recipe_kmp.presentation.home.components.ErrorScreen
@@ -55,8 +58,8 @@ fun DetailScreen(
     id: String,
     detailUiState: DetailUiState,
     navigateBack: () -> Unit,
-    saveToFavorite: () -> Unit,
-    deleteFromFavorite: () -> Unit
+    saveToFavorite: (FavoriteCats) -> Unit,
+    deleteFromFavorite: (FavoriteCats) -> Unit
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
 
@@ -93,11 +96,15 @@ fun DetailScreenContent(
     modifier: Modifier = Modifier,
     cats: Cats,
     paddingValues: PaddingValues,
-    saveToFavorite: () -> Unit,
-    deleteFromFavorite: () -> Unit,
+    saveToFavorite: (FavoriteCats) -> Unit,
+    deleteFromFavorite: (FavoriteCats) -> Unit,
     isFav: Boolean = false
 ) {
     val breed = cats.breeds.firstOrNull()
+    val favoriteCats = FavoriteCats(
+        id = cats.id!!,
+        url = cats.url
+    )
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -122,19 +129,21 @@ fun DetailScreenContent(
             Margin(size = 12.dp)
             if (isFav) {
                 Icon(
-                    Icons.Default.FavoriteBorder,
+                    Icons.Default.Favorite,
                     "",
-                    modifier = Modifier.clickable {
-                        saveToFavorite()
-                    }
+                    modifier = Modifier.clickable(onClick = {
+                        deleteFromFavorite(favoriteCats)
+                        }
+                    )
                 )
             } else {
                 Icon(
-                    Icons.Default.Favorite,
+                    Icons.Default.FavoriteBorder,
                     "",
-                    modifier = Modifier.clickable {
-                        deleteFromFavorite()
-                    }
+                    modifier = Modifier.clickable(onClick = {
+                        saveToFavorite(favoriteCats)
+                        }
+                    )
                 )
             }
             Margin(size = 16.dp)

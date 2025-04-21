@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.creospace.recipe_kmp.data.local.FavoriteCats
 import com.creospace.recipe_kmp.data.local.FavoriteRoomDatabase
+import com.creospace.recipe_kmp.data.repository.CatsPhotosRepository
 import kotlinx.coroutines.launch
 import okio.IOException
 import retrofit2.HttpException
@@ -17,9 +18,8 @@ sealed class FavoriteUiState {
     data object Error : FavoriteUiState()
 }
 
-class FavoriteViewModel (
-    private val favoriteRoomDatabase: FavoriteRoomDatabase,
-
+class FavoriteViewModel(
+    private val catsPhotosRepository: CatsPhotosRepository,
 ) : ViewModel() {
     var favoriteUiState: FavoriteUiState by mutableStateOf(FavoriteUiState.Loading)
         private set
@@ -32,7 +32,7 @@ class FavoriteViewModel (
         viewModelScope.launch {
             favoriteUiState = FavoriteUiState.Loading
             favoriteUiState = try {
-                FavoriteUiState.Success(favoriteRoomDatabase.favoriteDao().getAll())
+                FavoriteUiState.Success(catsPhotosRepository.loadAllFavorite())
             } catch (e: IOException) {
                 FavoriteUiState.Error
             } catch (e: HttpException) {

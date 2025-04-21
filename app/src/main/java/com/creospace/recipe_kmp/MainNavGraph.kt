@@ -9,11 +9,15 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+//import com.creospace.recipe_kmp.data.local.FavoriteCats
 import com.creospace.recipe_kmp.data.model.Cats
 import com.creospace.recipe_kmp.presentation.detail.DetailScreen
+import com.creospace.recipe_kmp.presentation.detail.DetailUiState
 import com.creospace.recipe_kmp.presentation.detail.DetailViewModel
+import com.creospace.recipe_kmp.presentation.favorite.FavoriteScreen
 import com.creospace.recipe_kmp.presentation.home.HomeScreen
 import com.creospace.recipe_kmp.presentation.home.HomeViewModel
+import com.creospace.recipe_kmp.presentation.profile.ProfileScreen
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
 import androidx.lifecycle.viewmodel.compose.viewModel as viewModel1
@@ -46,10 +50,15 @@ fun MainNavGraph(navController: NavHostController, paddingValues: PaddingValues)
                 navController = navController,
                 id = id,
                 navigateBack = {navController.popBackStack()},
-                saveToFavorite = {}, //get save method from favoriteviewmodel
-                deleteFromFavorite = {} //get delete method from favoriteviewmodel
+                saveToFavorite = {cat -> detailViewModel.insertFavorite(cat)},
+                deleteFromFavorite = {cat -> detailViewModel.deleteFavorite(cat)} //get delete method from favoriteviewmodel
             )
         }
-
+        composable(Screens.Favorite.route) {
+            FavoriteScreen()
+        }
+        composable(Screens.Profile.route) {
+            ProfileScreen()
+        }
     }
 }

@@ -10,6 +10,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.creospace.recipe_kmp.CatsApplication
+import com.creospace.recipe_kmp.data.local.FavoriteCats
 import com.creospace.recipe_kmp.data.model.Cats
 import com.creospace.recipe_kmp.data.repository.CatsPhotosRepository
 import kotlinx.coroutines.launch
@@ -43,6 +44,18 @@ class DetailViewModel(
             } catch (e: HttpException) {
                 DetailUiState.Error
             }
+        }
+    }
+
+    fun insertFavorite(favoriteCats: FavoriteCats) {
+        viewModelScope.launch {
+            catsPhotosRepository.insertFavorite(favoriteCats)
+        }
+    }
+
+    fun deleteFavorite(favoriteCats: FavoriteCats) {
+        viewModelScope.launch {
+            catsPhotosRepository.deleteFavorite(favoriteCats)
         }
     }
 }
