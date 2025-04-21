@@ -45,6 +45,7 @@ import coil3.request.crossfade
 import com.creospace.recipe_kmp.components.Margin
 import com.creospace.recipe_kmp.components.TopBar
 import com.creospace.recipe_kmp.data.local.FavoriteCats
+//import com.creospace.recipe_kmp.data.local.FavoriteCats
 import com.creospace.recipe_kmp.data.model.Breed
 import com.creospace.recipe_kmp.data.model.Cats
 import com.creospace.recipe_kmp.presentation.home.components.ErrorScreen
@@ -100,6 +101,7 @@ fun DetailScreenContent(
     deleteFromFavorite: (FavoriteCats) -> Unit,
     isFav: Boolean = false
 ) {
+    val context = LocalContext.current
     val breed = cats.breeds.firstOrNull()
     val favoriteCats = FavoriteCats(
         id = cats.id!!,
@@ -132,6 +134,7 @@ fun DetailScreenContent(
                     Icons.Default.Favorite,
                     "",
                     modifier = Modifier.clickable(onClick = {
+                        Toast.makeText(context, "berhasil dihapus dari favorite", Toast.LENGTH_LONG).show()
                         deleteFromFavorite(favoriteCats)
                         }
                     )
@@ -141,6 +144,7 @@ fun DetailScreenContent(
                     Icons.Default.FavoriteBorder,
                     "",
                     modifier = Modifier.clickable(onClick = {
+                        Toast.makeText(context, "berhasil ditambahkan ke favorite", Toast.LENGTH_LONG).show()
                         saveToFavorite(favoriteCats)
                         }
                     )

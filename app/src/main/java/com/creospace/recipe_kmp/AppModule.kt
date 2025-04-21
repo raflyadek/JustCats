@@ -5,6 +5,8 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.creospace.recipe_kmp.data.local.FavoriteDao
 import com.creospace.recipe_kmp.data.local.FavoriteRoomDatabase
+//import com.creospace.recipe_kmp.data.local.FavoriteDao
+//import com.creospace.recipe_kmp.data.local.FavoriteRoomDatabase
 import com.creospace.recipe_kmp.data.repository.CatsPhotosRepository
 import com.creospace.recipe_kmp.data.repository.DefaultCatsRepository
 import com.creospace.recipe_kmp.data.retrofit.CatApiService
@@ -57,5 +59,5 @@ fun provideDatabase(application: Application): FavoriteRoomDatabase =
     ).build()
 
 fun provideDao(favoriteRoomDatabase: FavoriteRoomDatabase): FavoriteDao =
-    favoriteRoomDatabase.favoriteDao()
+    favoriteRoomDatabase.getFavoriteDao()
 

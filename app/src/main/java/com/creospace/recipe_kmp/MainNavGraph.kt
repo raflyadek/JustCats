@@ -51,7 +51,7 @@ fun MainNavGraph(navController: NavHostController, paddingValues: PaddingValues)
                 id = id,
                 navigateBack = {navController.popBackStack()},
                 saveToFavorite = {cat -> detailViewModel.insertFavorite(cat)},
-                deleteFromFavorite = {cat -> detailViewModel.deleteFavorite(cat)} //get delete method from favoriteviewmodel
+                deleteFromFavorite = {cat -> detailViewModel.deleteFavorite(cat)}
             )
         }
         composable(Screens.Favorite.route) {
