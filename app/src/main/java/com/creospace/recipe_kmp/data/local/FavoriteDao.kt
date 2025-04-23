@@ -24,6 +24,6 @@ interface FavoriteDao {
     suspend fun loadAll(): List<FavoriteCats>
 
     @Query("SELECT * FROM favorite WHERE id = :id")
-    fun loadUserById(id: String): Flow<List<FavoriteCats>>
+    fun isFavorite(id: String): Flow<List<FavoriteCats>>
 
 }

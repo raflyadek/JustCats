@@ -3,6 +3,8 @@ package com.creospace.recipe_kmp
 import android.app.Application
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -47,13 +49,21 @@ fun MainNavGraph(navController: NavHostController, paddingValues: PaddingValues)
         ) {
             val id = it.arguments?.getString("id") ?: return@composable
             val detailViewModel = koinViewModel<DetailViewModel>(parameters = { parametersOf(id) })
+            val saveToFavorite: (FavoriteCats) -> Unit = { cat ->
+                detailViewModel.insertFavorite(cat)
+            }
+            val deleteFromFavorite: (FavoriteCats) -> Unit = { cat ->
+                detailViewModel.deleteFavorite(cat)
+            }
+            val isFav by detailViewModel.isFavorite(id).collectAsState(initial = false)
             DetailScreen(
                 detailUiState = detailViewModel.detailUiState,
                 navController = navController,
                 id = id,
                 navigateBack = {navController.popBackStack()},
-                saveToFavorite = {cat -> detailViewModel.insertFavorite(cat)},
-                deleteFromFavorite = {cat -> detailViewModel.deleteFavorite(cat)}
+                saveToFavorite = saveToFavorite,
+                deleteFromFavorite = deleteFromFavorite,
+                isFavorite = isFav
             )
         }
         composable(Screens.Favorite.route) {

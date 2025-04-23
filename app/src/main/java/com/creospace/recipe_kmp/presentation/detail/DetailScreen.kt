@@ -61,6 +61,7 @@ fun DetailScreen(
     navigateBack: () -> Unit,
     saveToFavorite: (FavoriteCats) -> Unit,
     deleteFromFavorite: (FavoriteCats) -> Unit,
+    isFavorite: Boolean
 
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
@@ -85,7 +86,8 @@ fun DetailScreen(
                         cats = detailUiState.detail,
                         paddingValues = innerPadding,
                         saveToFavorite = saveToFavorite,
-                        deleteFromFavorite = deleteFromFavorite
+                        deleteFromFavorite = deleteFromFavorite,
+                        isFav = isFavorite
                     )
                 else -> ErrorScreen({})
             }
@@ -100,7 +102,7 @@ fun DetailScreenContent(
     paddingValues: PaddingValues,
     saveToFavorite: (FavoriteCats) -> Unit,
     deleteFromFavorite: (FavoriteCats) -> Unit,
-    isFav: Boolean = false
+    isFav: Boolean = false,
 ) {
     val context = LocalContext.current
     val breed = cats.breeds.firstOrNull()
@@ -211,7 +213,7 @@ fun DetailScreenContentPreview(modifier: Modifier = Modifier) {
             paddingValues = PaddingValues(),
             saveToFavorite = {},
             deleteFromFavorite = {},
-            isFav = true
+            isFav = true,
         )
     }
 }

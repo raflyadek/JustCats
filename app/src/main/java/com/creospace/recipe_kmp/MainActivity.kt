@@ -17,6 +17,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
@@ -45,9 +46,11 @@ fun MainScreen(modifier: Modifier = Modifier) {
     val mainScreens = listOf(Screens.Home, Screens.Favorite, Screens.Profile)
     val bottomBarRoutes = setOf(Screens.Home.route, Screens.Favorite.route, Screens.Profile.route)
     val navController = rememberNavController()
-    val currentRoute by navController.currentBackStackEntryFlow
-        .map { it.destination.route }
-        .collectAsState(initial = Screens.Home.route)
+    val currentRouteFlow = remember {
+        navController.currentBackStackEntryFlow
+            .map { it.destination.route }
+    }
+    val currentRoute by currentRouteFlow.collectAsState(initial = Screens.Home.route)
     Scaffold(
         bottomBar = {
             if (currentRoute in bottomBarRoutes) {

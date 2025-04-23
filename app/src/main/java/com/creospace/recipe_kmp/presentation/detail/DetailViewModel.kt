@@ -1,19 +1,16 @@
 package com.creospace.recipe_kmp.presentation.detail
 
-import android.app.Application
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
-import com.creospace.recipe_kmp.CatsApplication
 import com.creospace.recipe_kmp.data.local.FavoriteCats
 //import com.creospace.recipe_kmp.data.local.FavoriteCats
 import com.creospace.recipe_kmp.data.model.Cats
 import com.creospace.recipe_kmp.data.repository.CatsPhotosRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import okio.IOException
 import retrofit2.HttpException
@@ -60,9 +57,7 @@ class DetailViewModel(
         }
     }
 
-    fun loadByUserId(id: String) {
-        viewModelScope.launch {
-            catsPhotosRepository.loadUserById(id)
-        }
+    fun isFavorite(id: String): Flow<Boolean> {
+        return catsPhotosRepository.isFavorite(id).map { it.isNotEmpty() }
     }
 }

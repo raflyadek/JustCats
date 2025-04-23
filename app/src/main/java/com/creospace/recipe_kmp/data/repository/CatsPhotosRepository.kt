@@ -14,7 +14,7 @@ interface CatsPhotosRepository {
     suspend fun loadAllFavorite(): List<FavoriteCats>
     suspend fun insertFavorite(favoriteCats: FavoriteCats)
     suspend fun deleteFavorite(favoriteCats: FavoriteCats)
-    suspend fun loadUserById(id: String): Flow<List<FavoriteCats>>
+    fun isFavorite(id: String): Flow<List<FavoriteCats>>
 }
 
 class DefaultCatsRepository(
@@ -26,6 +26,6 @@ class DefaultCatsRepository(
     override suspend fun loadAllFavorite(): List<FavoriteCats> = favoriteDao.loadAll()
     override suspend fun insertFavorite(favoriteCats: FavoriteCats) = favoriteDao.insert(favoriteCats)
     override suspend fun deleteFavorite(favoriteCats: FavoriteCats) = favoriteDao.delete(favoriteCats)
-    override suspend fun loadUserById(id: String): Flow<List<FavoriteCats>> = favoriteDao.loadUserById(id)
+    override fun isFavorite(id: String): Flow<List<FavoriteCats>> = favoriteDao.isFavorite(id)
 
 }
