@@ -11,11 +11,13 @@ import com.creospace.recipe_kmp.data.repository.CatsPhotosRepository
 import com.creospace.recipe_kmp.data.repository.DefaultCatsRepository
 import com.creospace.recipe_kmp.data.retrofit.CatApiService
 import com.creospace.recipe_kmp.presentation.detail.DetailViewModel
+import com.creospace.recipe_kmp.presentation.favorite.FavoriteViewModel
 import com.creospace.recipe_kmp.presentation.home.HomeViewModel
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
+import org.koin.core.module.dsl.viewModel
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
@@ -36,7 +38,7 @@ val appModules = module {
 
     viewModelOf(::HomeViewModel)
     viewModelOf(::DetailViewModel)
-
+    viewModelOf(::FavoriteViewModel)
 }
 
 

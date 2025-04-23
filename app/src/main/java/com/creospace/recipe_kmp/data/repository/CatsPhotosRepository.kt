@@ -4,6 +4,7 @@ import com.creospace.recipe_kmp.data.local.FavoriteCats
 import com.creospace.recipe_kmp.data.local.FavoriteDao
 import com.creospace.recipe_kmp.data.model.Cats
 import com.creospace.recipe_kmp.data.retrofit.CatApiService
+import kotlinx.coroutines.flow.Flow
 
 //create an catsphotorepository but using an interface for easier maintain
 //and then the class will be the under hood how this interface (display) works
@@ -13,6 +14,7 @@ interface CatsPhotosRepository {
     suspend fun loadAllFavorite(): List<FavoriteCats>
     suspend fun insertFavorite(favoriteCats: FavoriteCats)
     suspend fun deleteFavorite(favoriteCats: FavoriteCats)
+    suspend fun loadUserById(id: String): Flow<List<FavoriteCats>>
 }
 
 class DefaultCatsRepository(
@@ -24,5 +26,6 @@ class DefaultCatsRepository(
     override suspend fun loadAllFavorite(): List<FavoriteCats> = favoriteDao.loadAll()
     override suspend fun insertFavorite(favoriteCats: FavoriteCats) = favoriteDao.insert(favoriteCats)
     override suspend fun deleteFavorite(favoriteCats: FavoriteCats) = favoriteDao.delete(favoriteCats)
+    override suspend fun loadUserById(id: String): Flow<List<FavoriteCats>> = favoriteDao.loadUserById(id)
 
 }

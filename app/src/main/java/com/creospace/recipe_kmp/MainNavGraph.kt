@@ -9,12 +9,14 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.creospace.recipe_kmp.data.local.FavoriteCats
 //import com.creospace.recipe_kmp.data.local.FavoriteCats
 import com.creospace.recipe_kmp.data.model.Cats
 import com.creospace.recipe_kmp.presentation.detail.DetailScreen
 import com.creospace.recipe_kmp.presentation.detail.DetailUiState
 import com.creospace.recipe_kmp.presentation.detail.DetailViewModel
 import com.creospace.recipe_kmp.presentation.favorite.FavoriteScreen
+import com.creospace.recipe_kmp.presentation.favorite.FavoriteViewModel
 import com.creospace.recipe_kmp.presentation.home.HomeScreen
 import com.creospace.recipe_kmp.presentation.home.HomeViewModel
 import com.creospace.recipe_kmp.presentation.profile.ProfileScreen
@@ -55,7 +57,17 @@ fun MainNavGraph(navController: NavHostController, paddingValues: PaddingValues)
             )
         }
         composable(Screens.Favorite.route) {
-            FavoriteScreen()
+            val favoriteViewModel = koinViewModel<FavoriteViewModel>()
+            val navigateFavToDetail: (FavoriteCats) -> Unit = { favCat ->
+                navController.navigate("DetailScreen/${favCat.id}")
+            }
+            FavoriteScreen(
+                favoriteUiState = favoriteViewModel.favoriteUiState,
+                navController = navController,
+                paddingValues = paddingValues,
+                retryAction = {},
+                toDetail = navigateFavToDetail
+            )
         }
         composable(Screens.Profile.route) {
             ProfileScreen()

@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.creospace.recipe_kmp.data.local.FavoriteCats
 import com.creospace.recipe_kmp.data.local.FavoriteRoomDatabase
 import com.creospace.recipe_kmp.data.repository.CatsPhotosRepository
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import okio.IOException
 import retrofit2.HttpException
@@ -25,7 +26,10 @@ class FavoriteViewModel(
         private set
 
     init {
-        getAllFavorite()
+        viewModelScope.launch {
+            delay(5000)
+            getAllFavorite()
+        }
     }
 
     private fun getAllFavorite() {
@@ -34,8 +38,13 @@ class FavoriteViewModel(
             favoriteUiState = try {
                 FavoriteUiState.Success(catsPhotosRepository.loadAllFavorite())
             } catch (e: IOException) {
+                e.printStackTrace()
                 FavoriteUiState.Error
             } catch (e: HttpException) {
+                e.printStackTrace()
+                FavoriteUiState.Error
+            } catch (e: Exception) {
+                e.printStackTrace()
                 FavoriteUiState.Error
             }
         }

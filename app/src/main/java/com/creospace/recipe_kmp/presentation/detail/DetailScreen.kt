@@ -60,7 +60,8 @@ fun DetailScreen(
     detailUiState: DetailUiState,
     navigateBack: () -> Unit,
     saveToFavorite: (FavoriteCats) -> Unit,
-    deleteFromFavorite: (FavoriteCats) -> Unit
+    deleteFromFavorite: (FavoriteCats) -> Unit,
+
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
 

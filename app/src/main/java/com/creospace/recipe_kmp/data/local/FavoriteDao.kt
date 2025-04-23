@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface FavoriteDao {
@@ -21,5 +22,8 @@ interface FavoriteDao {
 
     @Query("SELECT * FROM favorite")
     suspend fun loadAll(): List<FavoriteCats>
+
+    @Query("SELECT * FROM favorite WHERE id = :id")
+    fun loadUserById(id: String): Flow<List<FavoriteCats>>
 
 }

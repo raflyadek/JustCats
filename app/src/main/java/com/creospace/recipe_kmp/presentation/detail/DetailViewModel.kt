@@ -59,4 +59,10 @@ class DetailViewModel(
             catsPhotosRepository.deleteFavorite(favoriteCats)
         }
     }
+
+    fun loadByUserId(id: String) {
+        viewModelScope.launch {
+            catsPhotosRepository.loadUserById(id)
+        }
+    }
 }
