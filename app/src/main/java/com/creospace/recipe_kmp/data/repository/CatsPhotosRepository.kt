@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 interface CatsPhotosRepository {
     suspend fun getCatsPhotos(): List<Cats>
     suspend fun getCatsDetail(id: String): Cats
-    suspend fun loadAllFavorite(): List<FavoriteCats>
+    suspend fun loadAllFavorite(): Flow<List<FavoriteCats>>
     suspend fun insertFavorite(favoriteCats: FavoriteCats)
     suspend fun deleteFavorite(favoriteCats: FavoriteCats)
     fun isFavorite(id: String): Flow<List<FavoriteCats>>
@@ -23,7 +23,7 @@ class DefaultCatsRepository(
 ) : CatsPhotosRepository {
     override suspend fun getCatsPhotos(): List<Cats> = catsApiService.getCatImages()
     override suspend fun getCatsDetail(id: String): Cats = catsApiService.getCatDetail(id)
-    override suspend fun loadAllFavorite(): List<FavoriteCats> = favoriteDao.loadAll()
+    override suspend fun loadAllFavorite(): Flow<List<FavoriteCats>> = favoriteDao.loadAll()
     override suspend fun insertFavorite(favoriteCats: FavoriteCats) = favoriteDao.insert(favoriteCats)
     override suspend fun deleteFavorite(favoriteCats: FavoriteCats) = favoriteDao.delete(favoriteCats)
     override fun isFavorite(id: String): Flow<List<FavoriteCats>> = favoriteDao.isFavorite(id)

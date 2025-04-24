@@ -26,26 +26,25 @@ class FavoriteViewModel(
         private set
 
     init {
-        viewModelScope.launch {
-            delay(5000)
-            getAllFavorite()
-        }
+        getAllFavorite()
     }
 
     private fun getAllFavorite() {
         viewModelScope.launch {
             favoriteUiState = FavoriteUiState.Loading
-            favoriteUiState = try {
-                FavoriteUiState.Success(catsPhotosRepository.loadAllFavorite())
+            try {
+                catsPhotosRepository.loadAllFavorite()
+                    .collect { favorite -> favoriteUiState = FavoriteUiState.Success(favorite)
+                }
             } catch (e: IOException) {
                 e.printStackTrace()
-                FavoriteUiState.Error
+                favoriteUiState = FavoriteUiState.Error
             } catch (e: HttpException) {
                 e.printStackTrace()
-                FavoriteUiState.Error
+                favoriteUiState = FavoriteUiState.Error
             } catch (e: Exception) {
                 e.printStackTrace()
-                FavoriteUiState.Error
+                favoriteUiState = FavoriteUiState.Error
             }
         }
     }

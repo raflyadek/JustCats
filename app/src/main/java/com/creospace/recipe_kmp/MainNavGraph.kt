@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -55,7 +56,7 @@ fun MainNavGraph(navController: NavHostController, paddingValues: PaddingValues)
             val deleteFromFavorite: (FavoriteCats) -> Unit = { cat ->
                 detailViewModel.deleteFavorite(cat)
             }
-            val isFav by detailViewModel.isFavorite(id).collectAsState(initial = false)
+            val isFav by detailViewModel.isFavorite(id).collectAsStateWithLifecycle(initialValue = false)
             DetailScreen(
                 detailUiState = detailViewModel.detailUiState,
                 navController = navController,
