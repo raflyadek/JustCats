@@ -13,10 +13,10 @@ import kotlinx.coroutines.launch
 import okio.IOException
 import retrofit2.HttpException
 
-sealed class FavoriteUiState {
-    data class Success(val favorite: List<FavoriteCats>) : FavoriteUiState()
-    data object Loading : FavoriteUiState()
-    data object Error : FavoriteUiState()
+sealed interface FavoriteUiState {
+    data class Success(val favorite: List<FavoriteCats>) : FavoriteUiState
+    data object Loading : FavoriteUiState
+    data object Error : FavoriteUiState
 }
 
 class FavoriteViewModel(

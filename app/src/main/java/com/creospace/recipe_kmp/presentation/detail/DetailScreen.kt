@@ -31,6 +31,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
@@ -134,8 +135,9 @@ fun DetailScreenContent(
             Margin(size = 12.dp)
             if (isFav) {
                 Icon(
-                    Icons.Default.Favorite,
-                    "",
+                    imageVector = Icons.Default.Favorite,
+                    contentDescription = "",
+                    tint = Color.Red,
                     modifier = Modifier.clickable(onClick = {
                         Toast.makeText(context, "berhasil dihapus dari favorite", Toast.LENGTH_LONG).show()
                         deleteFromFavorite(favoriteCats)
@@ -144,8 +146,8 @@ fun DetailScreenContent(
                 )
             } else {
                 Icon(
-                    Icons.Default.FavoriteBorder,
-                    "",
+                    imageVector = Icons.Default.FavoriteBorder,
+                    contentDescription = "",
                     modifier = Modifier.clickable(onClick = {
                         Toast.makeText(context, "berhasil ditambahkan ke favorite", Toast.LENGTH_LONG).show()
                         saveToFavorite(favoriteCats)

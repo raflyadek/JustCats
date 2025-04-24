@@ -15,10 +15,10 @@ import kotlinx.coroutines.launch
 import okio.IOException
 import retrofit2.HttpException
 
-sealed class DetailUiState {
-    data class Success(val detail: Cats) : DetailUiState()
-    object Error : DetailUiState()
-    object Loading : DetailUiState()
+sealed interface DetailUiState {
+    data class Success(val detail: Cats) : DetailUiState
+    object Error : DetailUiState
+    object Loading : DetailUiState
 }
 
 class DetailViewModel(
