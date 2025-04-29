@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -31,6 +32,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -62,7 +64,7 @@ fun DetailScreen(
     navigateBack: () -> Unit,
     saveToFavorite: (FavoriteCats) -> Unit,
     deleteFromFavorite: (FavoriteCats) -> Unit,
-    isFavorite: Boolean
+    isFavorite: Boolean,
 
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
@@ -88,7 +90,8 @@ fun DetailScreen(
                         paddingValues = innerPadding,
                         saveToFavorite = saveToFavorite,
                         deleteFromFavorite = deleteFromFavorite,
-                        isFav = isFavorite
+                        isFav = isFavorite,
+
                     )
                 else -> ErrorScreen({})
             }
@@ -123,6 +126,8 @@ fun DetailScreenContent(
                 .crossfade(true)
                 .build(),
             modifier = Modifier
+                .padding(horizontal = 4.dp, vertical = 4.dp)
+                .clip(RoundedCornerShape(16.dp))
                 .fillMaxWidth()
                 .fillMaxHeight(),
             contentScale = ContentScale.Crop,
@@ -130,7 +135,7 @@ fun DetailScreenContent(
         )
         Column(
             modifier = Modifier
-                .padding(horizontal = 8.dp)
+                .padding(horizontal = 14.dp)
         ) {
             Margin(size = 12.dp)
             if (isFav) {

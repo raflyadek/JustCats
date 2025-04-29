@@ -2,6 +2,7 @@ package com.creospace.recipe_kmp.components
 
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -33,11 +34,11 @@ fun TopBar(
     navigateBack: () -> Unit,
 ) {
     TopAppBar(
-        colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = White,
-            scrolledContainerColor = White,
-            titleContentColor = Black
-        ),
+//        colors = TopAppBarDefaults.topAppBarColors(
+//            containerColor = White,
+//            scrolledContainerColor = White,
+//            titleContentColor = Black
+//        ),
         title = {
             Text(
                 text = title,
@@ -50,7 +51,7 @@ fun TopBar(
                     navigateBack()
                 }) {
                 Icon(
-                    imageVector = Icons.Default.ArrowBack,
+                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = ""
                 )
             }

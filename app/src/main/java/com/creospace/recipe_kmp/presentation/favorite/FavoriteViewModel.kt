@@ -34,8 +34,7 @@ class FavoriteViewModel(
             favoriteUiState = FavoriteUiState.Loading
             try {
                 catsPhotosRepository.loadAllFavorite()
-                    .collect { favorite -> favoriteUiState = FavoriteUiState.Success(favorite)
-                }
+                    .collect { favorite -> favoriteUiState = FavoriteUiState.Success(favorite) }
             } catch (e: IOException) {
                 e.printStackTrace()
                 favoriteUiState = FavoriteUiState.Error

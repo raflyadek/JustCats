@@ -17,9 +17,10 @@ import com.creospace.recipe_kmp.ui.theme.RecipekmpTheme
 @Composable
 fun CatsList(catsList: List<Cats>, navController: NavController, toDetail: (Cats) -> Unit) {
     LazyVerticalStaggeredGrid(
-        columns = StaggeredGridCells.Adaptive(200.dp),
-        verticalItemSpacing = 2.dp,
-        horizontalArrangement = Arrangement.spacedBy(2.dp),
+        columns = StaggeredGridCells.Fixed(2),
+        verticalItemSpacing = 10.dp,
+        horizontalArrangement = Arrangement.spacedBy(3.dp),
+        contentPadding = PaddingValues(horizontal = 3.dp),
         content = {
             items(catsList.size) { index ->
                 CatsItem(
