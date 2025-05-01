@@ -3,7 +3,9 @@ package com.creospace.recipe_kmp.presentation.home.components
 import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -28,8 +30,10 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil3.compose.AsyncImage
+import coil3.request.CachePolicy
 import coil3.request.ImageRequest
 import coil3.request.crossfade
+import coil3.size.Size
 import com.creospace.recipe_kmp.components.Margin
 import com.creospace.recipe_kmp.data.model.Cats
 import com.creospace.recipe_kmp.ui.theme.Black
@@ -41,9 +45,21 @@ import com.creospace.recipe_kmp.ui.theme.White
 
 @Composable
 fun CatsItem(cats: Cats, navController: NavController, toDetail: () -> Unit) {
-    val breed = cats.breeds.firstOrNull()
+    val context = LocalContext.current
+    val imageRequest = ImageRequest.Builder(context)
+        .data(cats.url)
+        .memoryCacheKey(cats.url)
+        .diskCacheKey(cats.url)
+        .networkCachePolicy(CachePolicy.ENABLED)
+        .diskCachePolicy(CachePolicy.ENABLED)
+        .memoryCachePolicy(CachePolicy.ENABLED)
+        .size(Size.ORIGINAL)
+        .crossfade(true)
+        .build()
+//    val breed = cats.breeds.firstOrNull()
     Card(
         modifier = Modifier
+            .wrapContentHeight()
             .fillMaxWidth()
             .clickable {
                 Log.d("CatsItem", "Navigating to DetailScreen/${cats.id}")
@@ -58,13 +74,10 @@ fun CatsItem(cats: Cats, navController: NavController, toDetail: () -> Unit) {
             modifier = Modifier
         ) {
             AsyncImage(
-                model = ImageRequest.Builder(context = LocalContext.current)
-                    .data(cats.url)
-                    .crossfade(true)
-                    .build(),
+                model = imageRequest,
                 modifier = Modifier
-                    .clip(RoundedCornerShape(16.dp))
-                    .wrapContentHeight(),
+                    .fillMaxSize()
+                    .clip(RoundedCornerShape(16.dp)),
                 contentDescription = "food-image",
                 contentScale = ContentScale.Crop
             )

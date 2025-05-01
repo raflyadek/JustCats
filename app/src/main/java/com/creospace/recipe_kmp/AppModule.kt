@@ -3,6 +3,10 @@ package com.creospace.recipe_kmp
 import android.app.Application
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import coil3.ImageLoader
+import coil3.disk.DiskCache
+import coil3.disk.directory
+import coil3.memory.MemoryCache
 import com.creospace.recipe_kmp.data.local.FavoriteDao
 import com.creospace.recipe_kmp.data.local.FavoriteRoomDatabase
 //import com.creospace.recipe_kmp.data.local.FavoriteDao
@@ -34,6 +38,7 @@ val appModules = module {
 
     single { provideDatabase(get()) }
     single { provideDao(get()) }
+    single { provideCoilCache(get()) }
 
 
     viewModelOf(::HomeViewModel)
@@ -42,7 +47,23 @@ val appModules = module {
 }
 
 
+fun provideCoilCache(application: Application) {
+    ImageLoader.Builder(application)
+        .memoryCache {
+            MemoryCache.Builder()
+                .maxSizePercent(application, 0.25)
+                .build()
+        }
+        .diskCache {
+            DiskCache.Builder()
+                .directory(application.cacheDir.resolve("image_cache"))
+                .maxSizePercent(0.02)
+                .build()
+        }
 
+        .build()
+        .let { ImageLoader(application) }
+}
 fun provideRetrofit(): Retrofit {
     val json = Json { ignoreUnknownKeys = true }
     val BASE_URL =
@@ -58,7 +79,7 @@ fun provideDatabase(application: Application): FavoriteRoomDatabase =
         application,
         FavoriteRoomDatabase::class.java,
         "favorite"
-    ).build()
+    ).fallbackToDestructiveMigration().addMigrations().build()
 
 fun provideDao(favoriteRoomDatabase: FavoriteRoomDatabase): FavoriteDao =
     favoriteRoomDatabase.getFavoriteDao()

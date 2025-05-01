@@ -43,8 +43,10 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil3.compose.AsyncImage
+import coil3.request.CachePolicy
 import coil3.request.ImageRequest
 import coil3.request.crossfade
+import coil3.size.Size
 import com.creospace.recipe_kmp.components.Margin
 import com.creospace.recipe_kmp.components.TopBar
 import com.creospace.recipe_kmp.data.local.FavoriteCats
@@ -109,6 +111,15 @@ fun DetailScreenContent(
     isFav: Boolean = false,
 ) {
     val context = LocalContext.current
+    val imageRequest = ImageRequest.Builder(context)
+        .data(cats.url)
+        .memoryCacheKey(cats.url)
+        .diskCacheKey(cats.url)
+        .networkCachePolicy(CachePolicy.ENABLED)
+        .diskCachePolicy(CachePolicy.ENABLED)
+        .memoryCachePolicy(CachePolicy.ENABLED)
+        .crossfade(true)
+        .build()
     val breed = cats.breeds.firstOrNull()
     val favoriteCats = FavoriteCats(
         id = cats.id!!,
@@ -121,15 +132,11 @@ fun DetailScreenContent(
             .verticalScroll(rememberScrollState())
     ){
         AsyncImage(
-            model = ImageRequest.Builder(context = LocalContext.current)
-                .data(cats.url)
-                .crossfade(true)
-                .build(),
+            model = imageRequest,
             modifier = Modifier
                 .padding(horizontal = 4.dp, vertical = 4.dp)
                 .clip(RoundedCornerShape(16.dp))
-                .fillMaxWidth()
-                .fillMaxHeight(),
+                .fillMaxSize(),
             contentScale = ContentScale.Crop,
             contentDescription = ""
         )

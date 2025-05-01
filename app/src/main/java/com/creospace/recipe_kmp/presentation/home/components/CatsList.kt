@@ -19,7 +19,7 @@ fun CatsList(catsList: List<Cats>, navController: NavController, toDetail: (Cats
     LazyVerticalStaggeredGrid(
         columns = StaggeredGridCells.Fixed(2),
         verticalItemSpacing = 10.dp,
-        horizontalArrangement = Arrangement.spacedBy(3.dp),
+        horizontalArrangement = Arrangement.spacedBy(5.dp),
         contentPadding = PaddingValues(horizontal = 3.dp),
         content = {
             items(catsList.size) { index ->

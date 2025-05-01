@@ -19,7 +19,7 @@ fun FavoriteCatsList(FavoriteCatsList: List<FavoriteCats>, navController: NavCon
         columns = StaggeredGridCells.Fixed(2),
         verticalItemSpacing = 10.dp,
         contentPadding = PaddingValues(horizontal = 3.dp),
-        horizontalArrangement = Arrangement.spacedBy(3.dp),
+        horizontalArrangement = Arrangement.spacedBy(5.dp),
         content = {
             items(FavoriteCatsList.size) { index ->
                 FavoriteCatsItem(

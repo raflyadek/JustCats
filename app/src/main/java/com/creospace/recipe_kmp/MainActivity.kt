@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import com.creospace.recipe_kmp.ui.theme.RecipekmpTheme
 import kotlinx.coroutines.flow.map
+import org.koin.compose.KoinContext
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,7 +37,9 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             RecipekmpTheme {
-                MainScreen()
+                KoinContext() {
+                    MainScreen()
+                }
             }
         }
     }

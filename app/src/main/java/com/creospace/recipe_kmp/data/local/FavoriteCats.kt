@@ -13,5 +13,8 @@ data class FavoriteCats(
     val id: String,
 
     @ColumnInfo(name = "url")
-    val url: String? = ""
+    val url: String? = "",
+
+    @ColumnInfo(name = "name")
+    val name: String? = ""
 )
