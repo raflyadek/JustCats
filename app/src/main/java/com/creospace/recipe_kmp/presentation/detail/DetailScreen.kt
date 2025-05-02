@@ -1,6 +1,7 @@
 package com.creospace.recipe_kmp.presentation.detail
 
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -119,6 +120,14 @@ fun DetailScreenContent(
         .diskCachePolicy(CachePolicy.ENABLED)
         .memoryCachePolicy(CachePolicy.ENABLED)
         .crossfade(true)
+        .listener(
+            onSuccess = { request, result ->
+                Log.d("ImageLoad", "Loaded from: ${result.dataSource}")
+            },
+            onError = { request, throwable ->
+                Log.d("ImageLoad", "Error loading image: ${throwable.throwable}")
+            }
+        )
         .build()
     val breed = cats.breeds.firstOrNull()
     val favoriteCats = FavoriteCats(

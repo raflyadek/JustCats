@@ -59,6 +59,14 @@ fun CatsItem(cats: Cats, navController: NavController, toDetail: () -> Unit) {
         .memoryCachePolicy(CachePolicy.ENABLED)
         .size(sizeResolver)
         .crossfade(true)
+        .listener(
+            onSuccess = { request, result ->
+                Log.d("ImageLoad", "Loaded from: ${result.dataSource}")
+            },
+            onError = { request, throwable ->
+                Log.d("ImageLoad", "Error loading image: ${throwable.throwable}")
+            }
+        )
         .build()
 
 //    val breed = cats.breeds.firstOrNull()
@@ -76,14 +84,15 @@ fun CatsItem(cats: Cats, navController: NavController, toDetail: () -> Unit) {
         Column(
             modifier = Modifier
         ) {
+            //Issue with ContentScale.Crop returning different height
             AsyncImage(
                 model = painter,
                 modifier = Modifier
                     .clip(RoundedCornerShape(16.dp))
                     .then(sizeResolver),
                 contentDescription = "food-image",
+//                contentScale = ContentScale.Crop
             )
-            // #ISSUE# java.util.NoSuchElementException: No value present jetpack compose
 //            Margin(size = 10.dp)
 //            Text(
 //                modifier = Modifier.fillMaxWidth(),

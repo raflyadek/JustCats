@@ -55,6 +55,14 @@ fun FavoriteCatsItem(
         .memoryCachePolicy(CachePolicy.ENABLED)
         .size(sizeResolver)
         .crossfade(true)
+        .listener(
+            onSuccess = { request, result ->
+                Log.d("ImageLoad", "Loaded from: ${result.dataSource}")
+            },
+            onError = { request, throwable ->
+                Log.d("ImageLoad", "Error loading image: ${throwable.throwable}",)
+            }
+        )
         .build()
 
     Card(
@@ -68,12 +76,14 @@ fun FavoriteCatsItem(
             containerColor = MaterialTheme.colorScheme.background
         )
     ) { Column(modifier = Modifier.fillMaxWidth()) {
+        //Issue with ContentScale.Crop returning different height
         AsyncImage(
             model = painter,
             contentDescription = "",
             modifier = Modifier
                 .clip(RoundedCornerShape(16.dp))
-                .then(sizeResolver)
+                .then(sizeResolver),
+//            contentScale = ContentScale.Crop
         )
 //            Text(
 //                modifier = Modifier.fillMaxWidth(),
