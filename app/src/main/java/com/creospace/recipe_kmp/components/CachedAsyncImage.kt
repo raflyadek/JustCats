@@ -27,3 +27,41 @@ import coil3.request.SuccessResult
 import coil3.request.allowHardware
 import coil3.request.crossfade
 import coil3.size.Size
+
+@Composable
+fun CachedAsyncImage(
+    url: String,
+    contentScale: ContentScale = ContentScale.Crop,
+    modifier: Modifier = Modifier
+) {
+    val context = LocalContext.current
+    val imageLoader = ImageLoader(context)
+    var aspectRatio by remember(url) { mutableStateOf(ImageDimensionsCache.getAspectRatio(url) ?: 1f) }
+    var isLoading by remember(url) { mutableStateOf(ImageDimensionsCache.getAspectRatio(url) == null) }
+
+    AsyncImage(
+        model = ImageRequest.Builder(context)
+            .data(url)
+            .memoryCacheKey(url)
+            .listener(
+                onSuccess = { _, result ->
+                    val drawable = result.image
+                    val imageWidth = drawable.width.toFloat()
+                    val imageHeight = drawable.height.toFloat()
+                    val calculatedRatio = if (imageWidth > 0f && imageHeight > 0f) {
+                        imageWidth / imageHeight
+                    } else {
+                        1f
+                    }
+
+                    ImageDimensionsCache.setAspectRatio(url, calculatedRatio)
+                    aspectRatio = calculatedRatio
+                    isLoading = false
+                }
+            )
+            .build(),
+        contentDescription = "",
+        contentScale = contentScale,
+        modifier = modifier
+    )
+}

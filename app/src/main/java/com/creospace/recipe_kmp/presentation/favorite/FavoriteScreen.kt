@@ -19,7 +19,7 @@ fun FavoriteScreen(
         is FavoriteUiState.Error -> ErrorScreen(retryAction)
         is FavoriteUiState.Success ->
             FavoriteCatsList(
-                FavoriteCatsList = favoriteUiState.favorite,
+                favoriteCatsList = favoriteUiState.favorite,
                 navController = navController,
                 toDetail = toDetail
             )

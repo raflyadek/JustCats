@@ -6,26 +6,28 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateMapOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.creospace.recipe_kmp.data.local.FavoriteCats
-import com.creospace.recipe_kmp.data.model.Cats
-import com.creospace.recipe_kmp.presentation.home.components.CatsItem
 
 @Composable
-fun FavoriteCatsList(FavoriteCatsList: List<FavoriteCats>, navController: NavController, toDetail: (FavoriteCats) -> Unit) {
+fun FavoriteCatsList(favoriteCatsList: List<FavoriteCats>, navController: NavController, toDetail: (FavoriteCats) -> Unit) {
+
     LazyVerticalStaggeredGrid(
         columns = StaggeredGridCells.Fixed(2),
         verticalItemSpacing = 10.dp,
         contentPadding = PaddingValues(horizontal = 3.dp),
         horizontalArrangement = Arrangement.spacedBy(5.dp),
         content = {
-            items(FavoriteCatsList.size) { index ->
+            items(favoriteCatsList.size) { index ->
+                val cat = favoriteCatsList[index]
                 FavoriteCatsItem(
-                    favoriteCats = FavoriteCatsList[index],
+                    favoriteCats = cat,
                     navController = navController,
-                    toDetail = {toDetail(FavoriteCatsList[index])}
+                    toDetail = {toDetail(cat)}
                 )
             }
         },

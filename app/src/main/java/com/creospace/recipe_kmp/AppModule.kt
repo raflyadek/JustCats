@@ -60,9 +60,7 @@ fun provideCoilCache(application: Application) {
                 .maxSizePercent(0.02)
                 .build()
         }
-
         .build()
-        .let { ImageLoader(application) }
 }
 fun provideRetrofit(): Retrofit {
     val json = Json { ignoreUnknownKeys = true }

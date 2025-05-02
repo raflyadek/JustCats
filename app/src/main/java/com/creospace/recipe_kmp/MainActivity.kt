@@ -26,6 +26,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.rememberNavController
 import com.creospace.recipe_kmp.ui.theme.RecipekmpTheme
 import kotlinx.coroutines.flow.map
@@ -54,7 +55,7 @@ fun MainScreen(modifier: Modifier = Modifier) {
         navController.currentBackStackEntryFlow
             .map { it.destination.route }
     }
-    val currentRoute by currentRouteFlow.collectAsState(initial = Screens.Home.route)
+    val currentRoute by currentRouteFlow.collectAsStateWithLifecycle(initialValue = Screens.Home.route)
     Scaffold(
         bottomBar = {
             if (currentRoute in bottomBarRoutes) {

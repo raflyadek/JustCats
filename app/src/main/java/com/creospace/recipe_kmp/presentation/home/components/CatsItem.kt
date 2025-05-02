@@ -1,6 +1,7 @@
 package com.creospace.recipe_kmp.presentation.home.components
 
 import android.util.Log
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -30,6 +31,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil3.compose.AsyncImage
+import coil3.compose.rememberAsyncImagePainter
+import coil3.compose.rememberConstraintsSizeResolver
 import coil3.request.CachePolicy
 import coil3.request.ImageRequest
 import coil3.request.crossfade
@@ -46,21 +49,21 @@ import com.creospace.recipe_kmp.ui.theme.White
 @Composable
 fun CatsItem(cats: Cats, navController: NavController, toDetail: () -> Unit) {
     val context = LocalContext.current
-    val imageRequest = ImageRequest.Builder(context)
+    val sizeResolver = rememberConstraintsSizeResolver()
+    val painter = ImageRequest.Builder(context)
         .data(cats.url)
         .memoryCacheKey(cats.url)
         .diskCacheKey(cats.url)
         .networkCachePolicy(CachePolicy.ENABLED)
         .diskCachePolicy(CachePolicy.ENABLED)
         .memoryCachePolicy(CachePolicy.ENABLED)
-        .size(Size.ORIGINAL)
+        .size(sizeResolver)
         .crossfade(true)
         .build()
+
 //    val breed = cats.breeds.firstOrNull()
     Card(
         modifier = Modifier
-            .wrapContentHeight()
-            .fillMaxWidth()
             .clickable {
                 Log.d("CatsItem", "Navigating to DetailScreen/${cats.id}")
                 toDetail()
@@ -74,12 +77,11 @@ fun CatsItem(cats: Cats, navController: NavController, toDetail: () -> Unit) {
             modifier = Modifier
         ) {
             AsyncImage(
-                model = imageRequest,
+                model = painter,
                 modifier = Modifier
-                    .fillMaxSize()
-                    .clip(RoundedCornerShape(16.dp)),
+                    .clip(RoundedCornerShape(16.dp))
+                    .then(sizeResolver),
                 contentDescription = "food-image",
-                contentScale = ContentScale.Crop
             )
             // #ISSUE# java.util.NoSuchElementException: No value present jetpack compose
 //            Margin(size = 10.dp)
