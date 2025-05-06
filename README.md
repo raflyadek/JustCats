@@ -9,7 +9,7 @@
 
 
 ## Prerequisites
-Basic `Kotlin`, knowledge of `HTTP1` request by Retrofit Library, `Room` for local database, `Koin` for dependency injection
+Basic `Kotlin`, knowledge of `HTTP` request by Retrofit Library, `Room` for local database, `Koin` for dependency injection
 
 ## Project Description
 I build a JustCat Application with MVVM Architecture, In the home screen you will get a list of cat photos, when you click the photos you will get the detail of the cat like Name, Temprament and Description, and there is a `Heart Button` that you can click to add the cat to the favorite screen, thiws action using the `DAO` Methode to save the cat to the local database that we create using `Room library`. for UI i get inspired from Pinterest which using the Staggered grid so the image can be dynamic based on itws height.
