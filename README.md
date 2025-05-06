@@ -1,6 +1,10 @@
 # Android MVVM Architecture - JustCats APP
 
 `MVVM Architecture` is one of the most popular architecture to develop an app, MVVM architectural pattern divides an application into three key components: Model, View and ViewModel. Model: This is your data and business logic, here you process data, perform opperations, and interact with data sources. View: This is the User Interface (UI) of your App. ViewModel: Acts as a mediator between the model and view.
+![Uploading home_justcats.png…]()
+![Uploading favorite_justcats.png…]()
+![Uploading detail_justcats.png…]()
+
 
 
 ## Prerequisites
