@@ -3,7 +3,6 @@
 `MVVM Architecture` is one of the most popular architecture to develop an app, MVVM architectural pattern divides an application into three key components: Model, View and ViewModel. Model: This is your data and business logic, here you process data, perform opperations, and interact with data sources. View: This is the User Interface (UI) of your App. ViewModel: Acts as a mediator between the model and view.
 
 <img src="https://github.com/user-attachments/assets/87232356-b425-4432-b6ee-79c7b31beffa" alt="home_justcats" width="300" height="500">
-<img src="https://github.com/user-attachments/assets/2323e010-3e4d-4239-8987-fc754d3a43af" alt="favorite_justcats" width="300" height="500">
 <img src="https://github.com/user-attachments/assets/ac50e70b-8378-4a41-b462-d86db816b956" alt="detail_justcats" width="300" height="500">
 
 
