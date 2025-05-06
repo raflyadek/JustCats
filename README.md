@@ -26,4 +26,4 @@ I use [TheCatAPI](https://developers.thecatapi.com/) for collecting Cat photos a
 * [Paging3](https://developer.android.com/jetpack/androidx/releases/paging) for Load Bulk Data
 
 ## Run Project
-This Project build on `JDK 2.2`. Sync the `Gradle` and run the project. Install APK on your emulator on real device. Don't forget to turn on the `Internet` in your device so the application can access the API
+This Project build on `JDK 22`. Sync the `Gradle` and run the project. Install APK on your emulator on real device. Don't forget to turn on the `Internet` in your device so the application can access the API
