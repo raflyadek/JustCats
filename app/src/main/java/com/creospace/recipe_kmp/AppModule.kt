@@ -18,7 +18,9 @@ import com.creospace.recipe_kmp.presentation.detail.DetailViewModel
 import com.creospace.recipe_kmp.presentation.favorite.FavoriteViewModel
 import com.creospace.recipe_kmp.presentation.home.HomeViewModel
 import kotlinx.serialization.json.Json
+import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.OkHttpClient
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.module.dsl.viewModel
@@ -64,9 +66,20 @@ fun provideCoilCache(application: Application) {
 }
 fun provideRetrofit(): Retrofit {
     val json = Json { ignoreUnknownKeys = true }
+    val apiKey = BuildConfig.API_KEY
     val BASE_URL =
         "https://api.thecatapi.com/"
+    val apiKeyInterceptor = Interceptor { chain ->
+        val request = chain.request().newBuilder()
+            .addHeader("x-api-key", BuildConfig.API_KEY)
+            .build()
+        chain.proceed(request)
+    }
+    val okHttpClient = OkHttpClient.Builder()
+        .addInterceptor(apiKeyInterceptor)
+        .build()
     return Retrofit.Builder()
+        .client(okHttpClient)
         .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
         .baseUrl(BASE_URL)
         .build()

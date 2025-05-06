@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.android.application)
@@ -8,11 +9,25 @@ plugins {
     alias(libs.plugins.ksp)
 }
 
+
 android {
     namespace = "com.creospace.recipe_kmp"
     compileSdk = 35
 
     defaultConfig {
+        //load the values from .properties file
+        val keystoreFile = project.rootProject.file("app.properties")
+        val properties = Properties()
+        properties.load(keystoreFile.inputStream())
+
+        //return empty key in case something goes wrong
+        val apiKey = properties.getProperty("API_KEY") ?: ""
+
+        buildConfigField(
+            type = "String",
+            name = "API_KEY",
+            value = apiKey
+        )
         applicationId = "com.creospace.recipe_kmp"
         minSdk = 24
         targetSdk = 34
@@ -38,8 +53,12 @@ android {
     kotlinOptions {
         jvmTarget = "22"
     }
+    kotlin {
+        jvmToolchain(22)
+    }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
@@ -79,4 +98,6 @@ dependencies {
     implementation(libs.room.ktx)
     implementation(libs.room.runtime)
     ksp(libs.room.compiler)
+    implementation(libs.paging.compose)
+    implementation(libs.paging.runtime)
 }

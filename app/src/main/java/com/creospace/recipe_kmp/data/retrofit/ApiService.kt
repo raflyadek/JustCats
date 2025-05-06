@@ -8,7 +8,7 @@ import retrofit2.http.Path
 
 
 interface CatApiService {
-    @GET("v1/images/search?limit=10&has_breeds=1")
+    @GET("v1/images/search?limit=20&has_breeds=1")
     suspend fun getCatImages(): List<Cats>
 
     @GET("v1/images/{id}")

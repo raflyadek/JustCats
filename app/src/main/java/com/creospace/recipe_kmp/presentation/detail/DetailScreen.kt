@@ -147,7 +147,7 @@ fun DetailScreenContent(
                 .clip(RoundedCornerShape(16.dp))
                 .fillMaxSize(),
             contentScale = ContentScale.Crop,
-            contentDescription = ""
+            contentDescription = "",
         )
         Column(
             modifier = Modifier
@@ -216,7 +216,7 @@ fun DetailScreenContent(
 @Composable
 fun DetailScreenContentPreview(modifier: Modifier = Modifier) {
     RecipekmpTheme {
-        //doesnt work because coil load it from network and the preview dont load network images
+        //doesnt work because coil load it from network and the preview cant load images from network
         val navController = rememberNavController()
         //create the fake cat object using Cats data class
         val mockCat = Cats(
