@@ -68,3 +68,11 @@ fun MainScreen(modifier: Modifier = Modifier) {
         }
     }
 }
+
+@Preview(showBackground = true)
+@Composable
+fun MainScreenPreview(modifier: Modifier = Modifier) {
+        RecipekmpTheme {
+            MainScreen()
+        }
+}

@@ -71,7 +71,7 @@ fun provideRetrofit(): Retrofit {
         "https://api.thecatapi.com/"
     val apiKeyInterceptor = Interceptor { chain ->
         val request = chain.request().newBuilder()
-            .addHeader("x-api-key", BuildConfig.API_KEY)
+            .addHeader("x-api-key", apiKey)
             .build()
         chain.proceed(request)
     }
