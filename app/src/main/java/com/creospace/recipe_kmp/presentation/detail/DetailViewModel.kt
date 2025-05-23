@@ -23,7 +23,7 @@ sealed interface DetailUiState {
 
 class DetailViewModel(
     private val catsPhotosRepository: CatsPhotosRepository,
-    private val id: String
+    val id: String
 ) : ViewModel() {
     var detailUiState: DetailUiState by mutableStateOf(DetailUiState.Loading)
         private set
